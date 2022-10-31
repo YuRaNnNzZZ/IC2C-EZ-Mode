@@ -9,7 +9,7 @@ displayName="IC2C EZ Mode"
 authors="YuRaNnNzZZ"
 description='''
 THE EZ Mode for IC2 Classic.
-Currently it makes all wrenches have 100% drop rate.
+It makes all wrenches have 100% drop rate and machines not explode violently when overloaded anymore.
 '''
 
 [[dependencies.ic2cezmode]]
