@@ -10,15 +10,14 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(WrenchTool.class)
-public class WrenchToolMixin {
+@Mixin(value = WrenchTool.class, remap = false)
+public abstract class WrenchToolMixin {
     @Redirect(
             method = "onItemUseFirst(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/context/UseOnContext;)Lnet/minecraft/world/InteractionResult;",
             at = @At(
                     value = "INVOKE",
                     target = "Lic2/api/blocks/IWrenchable;getDropRate(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/player/Player;)D"
-            ),
-            remap = false
+            )
     )
     public double getFixedDropRate(IWrenchable instance, BlockState blockState, Level level, BlockPos blockPos, Player player) {
         return 1.0;

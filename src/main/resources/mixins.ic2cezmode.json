@@ -6,6 +6,8 @@
   "refmap": "mixins.mekatomicsilktouch.refmap.json",
   "mixins": [
     "EnergyNetLocalMixin",
+    "ICropMixin",
+    "WrenchComponentMixin",
     "WrenchToolMixin"
   ],
   "injectors": {

@@ -9,7 +9,10 @@ displayName="IC2C EZ Mode"
 authors="YuRaNnNzZZ"
 description='''
 THE EZ Mode for IC2 Classic.
-It makes all wrenches have 100% drop rate and machines not explode violently when overloaded anymore.
+Changes to the mod gameplay:
+- All wrenches have 100% drop rate
+- Machines drop as if they were broken instead of explosing on overvoltage
+- Crops are not destroyed when you run over them
 '''
 
 [[dependencies.ic2cezmode]]
@@ -29,6 +32,6 @@ It makes all wrenches have 100% drop rate and machines not explode violently whe
 [[dependencies.ic2cezmode]]
     modId="ic2"
     mandatory=true
-    versionRange="[1.19.2-2.0.0,)"
+    versionRange="[1.19.2-2.0.1,)"
     ordering="AFTER"
     side="BOTH"

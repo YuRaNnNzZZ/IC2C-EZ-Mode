@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(EnergyNetLocal.class)
+@Mixin(value = EnergyNetLocal.class, remap = false)
 public abstract class EnergyNetLocalMixin {
     @Shadow public abstract void removeTile(IEnergyTile tile);
 
@@ -22,8 +22,7 @@ public abstract class EnergyNetLocalMixin {
     @Inject(
             method = "explodeTiles(Lic2/api/energy/tile/IEnergyTile;)V",
             at = @At("HEAD"),
-            cancellable = true,
-            remap = false
+            cancellable = true
     )
     public void doNotExplodeTiles(IEnergyTile tile, CallbackInfo ci) {
         IC2.AUDIO.playSound(new SimplePosition(this.world, tile.getPosition()), IC2Explosion.ELECTRIC_EXPLOSION, AudioManager.SoundType.STATIC, 1.0f, 1.0f);
