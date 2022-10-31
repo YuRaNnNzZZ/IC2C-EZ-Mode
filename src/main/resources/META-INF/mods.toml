@@ -1,0 +1,34 @@
+modLoader="javafml"
+loaderVersion="[43,)"
+license="All rights reserved"
+
+[[mods]]
+modId="ic2cezmode"
+version="${file.jarVersion}"
+displayName="IC2C EZ Mode"
+authors="YuRaNnNzZZ"
+description='''
+THE EZ Mode for IC2 Classic.
+Currently it makes all wrenches have 100% drop rate.
+'''
+
+[[dependencies.ic2cezmode]]
+    modId="forge"
+    mandatory=true
+    versionRange="[43,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.ic2cezmode]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.19.2,1.20)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.ic2cezmode]]
+    modId="ic2"
+    mandatory=true
+    versionRange="[1.19.2-2.0.0,)"
+    ordering="AFTER"
+    side="BOTH"

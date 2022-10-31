@@ -1,0 +1,92 @@
+plugins {
+	id 'eclipse'
+	id 'maven-publish'
+	id 'net.minecraftforge.gradle' version '5.1.+'
+	id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
+}
+
+version = '1.19.2-1.0.0'
+group = 'ru.yurannnzzz'
+archivesBaseName = 'IC2C-EZMode'
+
+// Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
+minecraft {
+	mappings channel: 'official', version: '1.19.2'
+
+	// accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
+
+	runs {
+		client {
+			workingDirectory project.file('run')
+
+			property 'forge.logging.markers', 'REGISTRIES'
+			property 'forge.logging.console.level', 'debug'
+
+			mods {
+				ic2cezmode {
+					source sourceSets.main
+				}
+			}
+		}
+	}
+}
+
+repositories {
+	maven { url 'https://cursemaven.com' }
+}
+
+dependencies {
+	minecraft 'net.minecraftforge:forge:1.19.2-43.1.1'
+
+	if (System.getProperty('idea.sync.active') != 'true') {
+		annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+	}
+
+	implementation fg.deobf('curse.maven:ic2_classic-242942:4041302')
+}
+
+// Example for how to get properties into the manifest for reading at runtime.
+jar {
+	manifest {
+		attributes([
+				"Specification-Title"     : "IC2C EZ Mode",
+				"Specification-Vendor"    : "YuRaNnNzZZ",
+				"Specification-Version"   : "1",
+				"Implementation-Title"    : project.name,
+				"Implementation-Version"  : project.jar.archiveVersion,
+				"Implementation-Vendor"   : "YuRaNnNzZZ",
+				"Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+		])
+	}
+}
+
+// Example configuration to allow publishing using the maven-publish plugin
+// This is the preferred method to reobfuscate your jar file
+jar.finalizedBy('reobfJar')
+// However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
+// publish.dependsOn('reobfJar')
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			artifact jar
+		}
+	}
+	repositories {
+		maven {
+			url "file://${project.projectDir}/mcmodsrepo"
+		}
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+mixin {
+	add sourceSets.main, 'mixins.ic2cezmode.refmap.json'
+	config 'mixins.ic2cezmode.json'
+}
